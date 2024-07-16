@@ -1,0 +1,79 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.duedate }}</td>
+                    <td>{{ task.status_display }}</td>
+                    <td><a href="/update/{{ task.id }}"><button>Update</button></a></td>
+                    <td><a href="/delete/{{ task.id }}"><button>Delete</button></a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in task_status_list %}
+                <tr>
+                    <td>{{ item.task.name }}</td>
+                    <td>{{ item.task.title }}</td>
+                    <td>{{ item.task.description }}</td>
+                    <td>{{ item.task.duedate }}</td>
+                    <td>{{ item.status_display }}</td>
+                    <td><a href="{% url 'update' item.task.id %}"><button>Update</button></a></td>
+                    <td>
+                        <form action="{% url 'delete' item.task.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>                    <!-- <td><a href="{% url 'delete' item.task.id %}"><button>Delete</button></a></td> -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'add' %}"><button>Add</button></a>
+
+</body>
+</html>
+
